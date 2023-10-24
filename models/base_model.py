@@ -10,6 +10,8 @@ class BaseModel:
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
+        self.my_number = None
+        self.name = None
 
     def __str__(self):
         """returning string representation"""
@@ -17,6 +19,7 @@ class BaseModel:
 
     def save(self):
         """save current """
+        self.updated_at = datetime.datetime.now()
         return self.updated_at
 
     def to_dict(self):

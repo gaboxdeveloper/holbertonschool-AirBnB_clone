@@ -6,13 +6,14 @@ import uuid
 
 class BaseModel:
     """Base model class"""
-    id = str(uuid.uuid4())
-    created_at = datetime.datetime.now()
-    updated_at = datetime.datetime.now()
+    def __init__(self):
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
 
     def __str__(self):
         """returning string representation"""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.to_dict()}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """save current """
@@ -20,13 +21,14 @@ class BaseModel:
 
     def to_dict(self):
         """to dict method"""
-        self.updated_at.isoformat("T")
-        self.created_at.isoformat("T")
+        self.created_at_iso = self.created_at.isoformat()
+        self.updated_at_iso = self.updated_at.isoformat()
         dictionary = {
             'my_number': self.my_number,
             'name': self.name,
-            'updated_at': self.updated_at,
+            '__class__': self.__class__.__name__,
+            'updated_at': self.updated_at_iso,
             'id': self.id,
-            'created_at': self.created_at,
+            'created_at': self.created_at_iso
         }
         return dictionary

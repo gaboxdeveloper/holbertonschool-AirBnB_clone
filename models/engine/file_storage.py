@@ -7,7 +7,7 @@ class FileStorage:
     """File Sotrage Class"""
     __file_path = "file.json"
     __objects = {}
- 
+
     def all(self):
         """Return all dictionary"""
         return self.__objects
@@ -23,8 +23,9 @@ class FileStorage:
             json.dump(self.__objects, f)
 
     def reload(self):
+        """reload method"""
         try:
             with open(self.__file_path, "r") as f:
                 self.__objects = json.load(f)
-        except:
+        except FileNotFoundError:
             pass

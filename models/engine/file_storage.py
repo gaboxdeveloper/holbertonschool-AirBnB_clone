@@ -2,6 +2,7 @@
 """Base model defining all common attributes/methods for other classes"""
 import json
 
+
 class FileStorage():
     """File Sotrage Class"""
     __file_path = "file.json"
@@ -28,6 +29,6 @@ class FileStorage():
             with open(self.__file_path, 'r') as file:
                 formato_dict = json.load(file)
                 for key, value in formato_dict.items():
-                    self.__objects[value] = value
+                    self.__objects[key] = value
         except FileNotFoundError:
             pass

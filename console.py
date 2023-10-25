@@ -15,8 +15,8 @@ class HBNBCommand(cmd.Cmd):
         """Exit the program (Ctrl+D)"""
         return True
 
-    def emptyline(self) -> bool:
-        return super().emptyline()
+    def emptyline(self):
+        pass
 
 
 if __name__ == '__main__':

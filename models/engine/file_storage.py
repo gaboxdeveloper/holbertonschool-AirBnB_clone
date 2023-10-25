@@ -2,22 +2,29 @@
 """Base model defining all common attributes/methods for other classes"""
 import json
 
+
 class FileStorage:
     """File Sotrage Class"""
     __file_path = "file.json"
-    objects = {}
-        
+    __objects = {}
+ 
     def all(self):
         """Return all dictionary"""
-        return object
-    
+        return self.__objects
+
     def new(self, obj):
-        """"""
+        """new method"""
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
-    
+
     def save(self):
-        """a"""
-        with open("__objects.json", "w") as __file_path:
-            json.dump(self.__objects, __file_path)
-            
+        """save method"""
+        with open(self.__file_path, "w") as f:
+            json.dump(self.__objects, f)
+
+    def reload(self):
+        try:
+            with open(self.__file_path, "r") as f:
+                self.__objects = json.load(f)
+        except:
+            pass

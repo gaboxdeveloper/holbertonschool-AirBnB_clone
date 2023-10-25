@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """Base model defining all common attributes/methods for other classes"""
-import datetime
+from datetime import datetime
 import uuid
+from models import storage
 
 
 class BaseModel:
@@ -10,14 +11,15 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
-                    setattr(self, key, datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
+                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
                 elif key != "__class__":
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = self.updated_at = datetime.datetime.now()
+            self.created_at = self.updated_at = datetime.now()
             self.my_number = None
             self.name = None
+            storage.new()
 
     def __str__(self):
         """returning string representation"""
@@ -25,7 +27,8 @@ class BaseModel:
 
     def save(self):
         """save current """
-        self.updated_at = datetime.datetime.now()
+        storage.save(self)
+        self.updated_at = datetime.now()
         return self.updated_at
 
     def to_dict(self):

@@ -2,7 +2,7 @@
 """Base model defining all common attributes/methods for other classes"""
 from datetime import datetime
 import uuid
-from . import storage
+from models import storage
 
 
 class BaseModel:
@@ -29,8 +29,7 @@ class BaseModel:
     def save(self):
         """save current """
         self.updated_at = datetime.now()
-        storage.save(self)
-        return self.updated_at
+        storage.save()
 
     def to_dict(self):
         """to dict method"""

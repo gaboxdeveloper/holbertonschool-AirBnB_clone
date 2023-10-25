@@ -2,8 +2,7 @@
 """Base model defining all common attributes/methods for other classes"""
 import json
 
-
-class FileStorage:
+class FileStorage():
     """File Sotrage Class"""
     __file_path = "file.json"
     __objects = {}
@@ -14,18 +13,21 @@ class FileStorage:
 
     def new(self, obj):
         """new method"""
-        key = f"{self.__class__.__name__}.id"
+        key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
 
     def save(self):
-        """save method"""
-        with open(self.__file_path, "w") as f:
-            json.dump(self.__objects, f)
+        formato_dict = {}
+        for key, value in self.__objects.items():
+            formato_dict[key] = value.to_dict()
+        with open(self.__file_path, 'w') as f:
+            json.dump(formato_dict, f)
 
     def reload(self):
-        """reload method"""
         try:
-            with open(self.__file_path, "r") as f:
-                self.__objects = json.load(f)
+            with open(self.__file_path, 'r') as file:
+                formato_dict = json.load(file)
+                for key, value in formato_dict.items():
+                    self.__objects[value] = value
         except FileNotFoundError:
             pass

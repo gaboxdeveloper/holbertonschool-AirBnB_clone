@@ -23,7 +23,7 @@ class FileStorage():
             for key, value in self.__objects.items():
                 formato_dict[key] = value.to_dict()
             with open(self.__file_path, 'w') as f:
-                json.dump(formato_dict, f)
+                json.dump(formato_dict, f, indent=4)
         except AttributeError:
             pass
 

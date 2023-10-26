@@ -18,11 +18,14 @@ class FileStorage():
         self.__objects[key] = obj
 
     def save(self):
-        formato_dict = {}
-        for key, value in self.__objects.items():
-            formato_dict[key] = value.to_dict()
-        with open(self.__file_path, 'w') as f:
-            json.dump(formato_dict, f)
+        try:
+            formato_dict = {}
+            for key, value in self.__objects.items():
+                formato_dict[key] = value.to_dict()
+            with open(self.__file_path, 'w') as f:
+                json.dump(formato_dict, f)
+        except AttributeError:
+            pass
 
     def reload(self):
         try:

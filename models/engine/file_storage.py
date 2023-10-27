@@ -27,11 +27,18 @@ class FileStorage():
         except AttributeError:
             pass
 
+    def classeneitor(self, class_name):
+        if class_name == 'BaseModel':
+            from models.base_model import BaseModel
+            return BaseModel
+
     def reload(self):
         try:
             with open(self.__file_path, 'r') as file:
                 formato_dict = json.load(file)
                 for key, value in formato_dict.items():
-                    self.__objects[key] = value
+                    Class = self.classeneitor(value['__class__'])
+                    instance = Class(**value)
+                    self.__objects[key] = instance
         except FileNotFoundError:
             pass

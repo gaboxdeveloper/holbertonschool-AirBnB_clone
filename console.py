@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
 
         else:
             obj = self.__objects[key]
-            setattr(obj, attr_name, attr_value)
+            setattr(obj, args[2], args[3])
             obj.save()
 
 

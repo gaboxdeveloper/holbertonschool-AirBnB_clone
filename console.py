@@ -22,6 +22,7 @@ class HBNBCommand(cmd.Cmd):
         'State': State,
         'User': User,
         'Review': Review,
+        
         }
     
     def do_quit(self, arg):

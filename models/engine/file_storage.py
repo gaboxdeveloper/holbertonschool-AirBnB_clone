@@ -31,6 +31,24 @@ class FileStorage():
         if class_name == 'BaseModel':
             from models.base_model import BaseModel
             return BaseModel
+        if class_name == 'User':
+            from models.user import User
+            return User
+        if class_name == 'City':
+            from models.city import City
+            return City
+        if class_name == 'Place':
+            from models.place import Place
+            return Place
+        if class_name == 'State':
+            from models.state import State
+            return State
+        if class_name == 'User':
+            from models.review import Review
+            return Review
+        if class_name == 'User':
+            from models.amenity import Amenity
+            return Amenity
 
     def reload(self):
         try:

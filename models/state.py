@@ -2,6 +2,7 @@
 """State class that inherits from Base Model"""
 from models.base_model import BaseModel
 
+
 class State(BaseModel):
     """state class"""
     name = ""

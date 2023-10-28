@@ -107,22 +107,15 @@ class HBNBCommand(cmd.Cmd):
         else:
             key = "{}.{}".format(args[0], args[1])
             objects = storage.all()
-            attr_value_str = args[3]
-            obj = objects[key]
             if key not in objects:
                 print("** no instance found **")
             else:
-                if hasattr(obj, args[2]):
-                    attr_type = type(getattr(obj, args[2]))
+                if hasattr(objects[key], args[2]):
+                    attr_type = type(getattr(objects[key], args[2]))
+                    setattr(objects[key], args[2], attr_type(args[3]))
+                    objects[key].save()
                 else:
                     print("** instance has no attribute {} **".format(args[2]))
-                try:
-                    attr_value = attr_type(attr_value_str)
-                except ValueError:
-                    print(f"** invalid {args[2]} value **")
-                    return
-                setattr(obj, args[2], attr_value)
-                obj.save()
 
 
 if __name__ == '__main__':

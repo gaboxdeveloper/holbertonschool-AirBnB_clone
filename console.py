@@ -111,11 +111,16 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
             else:
                 if hasattr(objects[key], args[2]):
-                    attr_type = type(getattr(objects[key], args[3]))
-                    setattr(objects[key], args[3], attr_type(args[3]))
-                    objects[key].save()
+                    attr_type = type(getattr(objects[key], args[2]))
                 else:
                     print("** instance has no attribute {} **".format(args[2]))
+                try:
+                    attr_value = attr_type(args[3])
+                except ValueError:
+                    print(f"** invalid {args[2]} value **")
+                    return
+                setattr(objects[key], args[2], attr_value)
+                objects[key].save()
 
 
 if __name__ == '__main__':

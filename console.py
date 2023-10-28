@@ -24,7 +24,7 @@ class HBNBCommand(cmd.Cmd):
         'Review': Review,
         '': ''
         }
-    
+
     def do_quit(self, arg):
         """Quit command to exit the program\n"""
         return True
@@ -66,7 +66,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print(storage.all()[keys].__str__())
 
-
     def do_destroy(self, arg):
         args = arg.split()
         if not arg:
@@ -90,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             objects = storage.all()
             class_name = self.__classes[arg]
-            for key, value  in objects.items():
+            for key, value in objects.items():
                 print(value)
 
     def do_update(self, arg):
@@ -111,10 +110,12 @@ class HBNBCommand(cmd.Cmd):
             if key not in objects:
                 print("** no instance found **")
             else:
-                if args[2] not in ['id', 'created_at', 'updated_at']:
+                if hasattr(objects[key], args[2]):
                     attr_type = type(getattr(objects[key], args[2]))
                     objects[key].__dict__[args[2]] = attr_type(args[3])
                     objects[key].save()
+                else:
+                    print("** instance has no attribute {} **".format(args[2]))
 
 
 if __name__ == '__main__':

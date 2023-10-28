@@ -10,6 +10,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     __classes = {
         'BaseModel': BaseModel,
+        '': ''
         }
     
     def do_quit(self, arg):
@@ -40,22 +41,45 @@ class HBNBCommand(cmd.Cmd):
         if len(args) < 1:
             print("** class name missing **")
             return
-
         if args[0] not in self.__classes:
-            print("** class doesn't exist **")
+            print("** class doesn’t exist **")
             return
-
         if len(args) < 2:
             print("** instance id missing **")
             return
+        else:
+            keys = args[0] + '.' + args[1]
+            if keys not in storage.all().keys():
+                print("** no instance found **")
+            else:
+                print(storage.all()[keys].__str__())
 
+
+    def do_destroy(self, arg):
+        args = arg.split()
+        if not arg:
+            print("** class name missing **")
+        elif args[0] not in self.__classes:
+            print("** class doesn't exist **")
+        elif len(args) < 2:
+            print("** instance id missing **")
+        else:
+            objects = storage.all()
+            key = "{}.{}".format(args[0], args[1])
+            if key in objects:
+                del objects[key]
+                storage.save()
+            else:
+                print("** no instance found **")
 
     def do_all(self, arg):
         if arg not in self.__classes:
             print("** class doesn't exist **")
         else:
-            print(f"")
-
+            objects = storage.all()
+            class_name = self.__classes[arg]
+            for key, value  in objects.items():
+                print(value)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

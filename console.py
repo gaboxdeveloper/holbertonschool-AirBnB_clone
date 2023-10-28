@@ -98,23 +98,29 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) == 0:
             print("** class name missing **")
+            return
 
-        elif args[0] not in self.__classes:
+        if args[0] not in self.__classes:
             print("** class doesn't exist **")
+            return
 
-        elif len(args) < 2:
+        if len(args) < 2:
             print("** instance id missing **")
+            return
 
         key = f"{args[0]}.{args[1]}"
 
         if key not in self.__objects:
             print("** no instance found **")
+            return
 
-        elif len(args) < 3:
+        if len(args) < 3:
             print("** attribute name missing **")
+            return
 
-        elif len(args) < 4:
+        if len(args) < 4:
             print("** value missing **")
+            return
 
         else:
             obj = self.__objects[key]

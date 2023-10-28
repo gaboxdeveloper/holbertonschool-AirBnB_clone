@@ -43,10 +43,10 @@ class FileStorage():
         if class_name == 'State':
             from models.state import State
             return State
-        if class_name == 'User':
+        if class_name == 'Review':
             from models.review import Review
             return Review
-        if class_name == 'User':
+        if class_name == 'Amenity':
             from models.amenity import Amenity
             return Amenity
 

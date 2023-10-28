@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
         'State': State,
         'User': User,
         'Review': Review,
-        
+        '': ''
         }
     
     def do_quit(self, arg):
@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         if args[0] not in self.__classes:
-            print("** class doesn’t exist **")
+            print("** class doesn't exist **")
             return
         if len(args) < 2:
             print("** instance id missing **")
@@ -92,6 +92,36 @@ class HBNBCommand(cmd.Cmd):
             class_name = self.__classes[arg]
             for key, value  in objects.items():
                 print(value)
+
+    def do_update(self, arg):
+        args = arg.split()
+        key = f"{args[0]}.{args[1]}"
+        attr_name = args[2]
+        attr_value = args[3]
+
+        if len(args) == 0:
+            print("** class name missing **")
+
+        elif args[0] not in self.__classes:
+            print("** class doesn't exist **")
+
+        elif len(args) < 2:
+            print("** instance id missing **")
+
+        elif key not in self.__objects:
+            print("** no instance found **")
+
+        elif len(args) < 3:
+            print("** attribute name missing **")
+
+        elif len(args) < 4:
+            print("** value missing **")
+
+        else:
+            obj = self.__objects[key]
+            setattr(obj, attr_name, attr_value)
+            obj.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

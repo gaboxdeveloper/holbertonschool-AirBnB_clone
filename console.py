@@ -112,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 if hasattr(objects[key], args[2]):
                     attr_type = type(getattr(objects[key], args[2]))
-                    objects[key].__dict__[args[2]] = attr_type(args[3])
+                    setattr(objects[key], args[2], attr_type(args[3]))
                     objects[key].save()
                 else:
                     print("** instance has no attribute {} **".format(args[2]))

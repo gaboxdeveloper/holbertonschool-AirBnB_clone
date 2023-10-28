@@ -95,9 +95,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         args = arg.split()
-        key = f"{args[0]}.{args[1]}"
-        attr_name = args[2]
-        attr_value = args[3]
 
         if len(args) == 0:
             print("** class name missing **")
@@ -108,7 +105,9 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) < 2:
             print("** instance id missing **")
 
-        elif key not in self.__objects:
+        key = f"{args[0]}.{args[1]}"
+
+        if key not in self.__objects:
             print("** no instance found **")
 
         elif len(args) < 3:

@@ -1,9 +1,10 @@
+#!/usr/bin/python3
 import unittest
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
-class TestFileStorage(unittest.TestCase):
 
+class TestFileStorage(unittest.TestCase):
     def test_file_path(self):
         # Verificar que el atributo __file_path exista y sea una cadena
         storage = FileStorage()

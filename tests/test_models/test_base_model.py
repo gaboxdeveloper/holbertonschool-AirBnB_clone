@@ -39,5 +39,6 @@ class TestBaseModel(unittest.TestCase):
         obj_str = str(self.base_model)
         self.assertIsInstance(obj_str, str)
 
+
 if __name__ == '__main__':
     unittest.main()

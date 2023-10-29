@@ -65,23 +65,6 @@ class TestFileStorage(unittest.TestCase):
         reloaded_object = objects[key]
         self.assertEqual(reloaded_object.id, self.base_model.id)
 
-class TestBaseModel(unittest.TestCase):
-
-    def setUp(self):
-        # Crear una instancia de FileStorage para las pruebas
-        self.storage = FileStorage()
-        # Crear una instancia de BaseModel para las pruebas
-        self.base_model = BaseModel()
-        # Agregar un objeto a __objects en FileStorage
-        self.storage.new(self.base_model)
-
-    def test_save(self):
-        # Verificar que el método save() actualice self.updated_at
-        updated_at_before = self.base_model.updated_at
-        self.base_model.save()
-        updated_at_after = self.base_model.updated_at
-        self.assertNotEqual(updated_at_before, updated_at_after)
-
 
 if __name__ == '__main__':
     unittest.main()

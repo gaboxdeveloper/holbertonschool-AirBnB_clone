@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import unittest
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from datetime import datetime
 
 
@@ -38,6 +39,21 @@ class TestBaseModel(unittest.TestCase):
         # Verificar que el método __str__ devuelve una cadena
         obj_str = str(self.base_model)
         self.assertIsInstance(obj_str, str)
+
+    def setUp(self):
+        # Crear una instancia de FileStorage para las pruebas
+        self.storage = FileStorage()
+        # Crear una instancia de BaseModel para las pruebas
+        self.base_model = BaseModel()
+        # Agregar un objeto a __objects en FileStorage
+        self.storage.new(self.base_model)
+
+    def test_save(self):
+        # Verificar que el método save() actualice self.updated_at
+        updated_at_before = self.base_model.updated_at
+        self.base_model.save()
+        updated_at_after = self.base_model.updated_at
+        self.assertNotEqual(updated_at_before, updated_at_after)
 
 
 if __name__ == '__main__':

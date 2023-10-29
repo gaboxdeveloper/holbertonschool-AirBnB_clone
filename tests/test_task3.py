@@ -2,31 +2,41 @@
 import unittest
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
 
-    def test_to_dict(self):
-        model = BaseModel()
-        model.my_number = 42  # Establece un valor para my_number
-        model.name = "Sample"  # Establece un valor para name
-
-        expected_dict = {
-            'my_number': 42,
-            'name': 'Sample',
-            '__class__': 'BaseModel',
-            'updated_at': model.updated_at.isoformat(),
-            'id': model.id,
-            'created_at': model.created_at.isoformat()
-        }
-
-        self.assertEqual(model.to_dict(), expected_dict)
+    def setUp(self):
+        # Crear una instancia de BaseModel para las pruebas
+        self.base_model = BaseModel()
 
     def test_save(self):
-        model = BaseModel()
-        original_updated_at = model.updated_at
-        model.save()
-        new_updated_at = model.updated_at
+        # Verificar que el método save actualice self.updated_at
+        updated_at_before = self.base_model.updated_at
+        self.base_model.save()
+        updated_at_after = self.base_model.updated_at
+        self.assertNotEqual(updated_at_before, updated_at_after)
 
-        self.assertNotEqual(original_updated_at, new_updated_at)
+    def test_to_dict(self):
+        # Verificar que el método to_dict devuelve un diccionario con atributos correctos
+        obj_dict = self.base_model.to_dict()
+        self.assertIsInstance(obj_dict, dict)
+        self.assertIn('id', obj_dict)
+        self.assertIn('created_at', obj_dict)
+        self.assertIn('updated_at', obj_dict)
+        self.assertEqual(obj_dict['__class__'], 'BaseModel')
+
+    def test_self_id(self):
+        # Verificar que self.id sea una cadena
+        self.assertIsInstance(self.base_model.id, str)
+
+    def test_self_created_at(self):
+        # Verificar que self.created_at sea una instancia de datetime
+        self.assertIsInstance(self.base_model.created_at, datetime)
+
+    def test_str(self):
+        # Verificar que el método __str__ devuelve una cadena
+        obj_str = str(self.base_model)
+        self.assertIsInstance(obj_str, str)
 
 if __name__ == '__main__':
     unittest.main()

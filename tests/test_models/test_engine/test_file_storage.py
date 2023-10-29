@@ -31,34 +31,57 @@ class TestFileStorage(unittest.TestCase):
         objects = storage.all()
         self.assertIn(obj, objects.values())
 
+    def setUp(self):
+        # Crear una instancia de FileStorage para las pruebas
+        self.storage = FileStorage()
+        # Crear una instancia de BaseModel para las pruebas
+        self.base_model = BaseModel()
+
     def test_save(self):
-        # Verificar que el método save() funciona correctamente
-        storage = FileStorage()
-        obj = BaseModel()
-        storage.new(obj)
-        storage.save()
-        # Puedes verificar si el archivo se ha actualizado según tus requisitos
+        # Verificar que el método save() funcione correctamente
+        # Agregar un objeto a __objects
+        key = "{}.{}".format(self.base_model.__class__.__name__, self.base_model.id)
+        self.storage.new(self.base_model)
+        self.storage.save()
+        # Cargar los objetos nuevamente desde el archivo
+        self.storage.reload()
+        objects = self.storage.all()
+        self.assertTrue(key in objects)
+        saved_object = objects[key]
+        self.assertEqual(saved_object.id, self.base_model.id)
 
     def test_reload(self):
-        # Verificar que el método reload() funciona correctamente
-        storage = FileStorage()
-        obj = BaseModel()
-        storage.new(obj)
-        storage.save()
-        storage.reload()
-        # Puedes verificar si los objetos se han recargado correctamente
+        # Verificar que el método reload() funcione correctamente
+        # Agregar un objeto a __objects
+        key = "{}.{}".format(self.base_model.__class__.__name__, self.base_model.id)
+        self.storage.new(self.base_model)
+        self.storage.save()
+        # Borrar el objeto existente en __objects
+        del self.storage._FileStorage__objects[key]
+        # Cargar los objetos nuevamente desde el archivo
+        self.storage.reload()
+        objects = self.storage.all()
+        self.assertTrue(key in objects)
+        reloaded_object = objects[key]
+        self.assertEqual(reloaded_object.id, self.base_model.id)
 
 class TestBaseModel(unittest.TestCase):
 
-    def test_init(self):
-        # Verificar el comportamiento del constructor de BaseModel
-        obj = BaseModel()
-        # Puedes verificar si los atributos se inicializan correctamente
+    def setUp(self):
+        # Crear una instancia de FileStorage para las pruebas
+        self.storage = FileStorage()
+        # Crear una instancia de BaseModel para las pruebas
+        self.base_model = BaseModel()
+        # Agregar un objeto a __objects en FileStorage
+        self.storage.new(self.base_model)
 
     def test_save(self):
-        # Verificar el método save() en BaseModel
-        obj = BaseModel()
-        # Puedes verificar si el método actualiza self.updated_at y guarda
+        # Verificar que el método save() actualice self.updated_at
+        updated_at_before = self.base_model.updated_at
+        self.base_model.save()
+        updated_at_after = self.base_model.updated_at
+        self.assertNotEqual(updated_at_before, updated_at_after)
+
 
 if __name__ == '__main__':
     unittest.main()

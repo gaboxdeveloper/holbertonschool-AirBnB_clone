@@ -1,50 +1,63 @@
 import unittest
-from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
-
+from models.engine.file_storage import FileStorage
 
 class TestFileStorage(unittest.TestCase):
 
-    def setUp(self):
-        # Crear una instancia de FileStorage para las pruebas
-        self.storage = FileStorage()
-
     def test_file_path(self):
         # Verificar que el atributo __file_path exista y sea una cadena
-        self.assertTrue(hasattr(self.storage, "_FileStorage__file_path"))
-        self.assertIsInstance(self.storage._FileStorage__file_path, str)
+        storage = FileStorage()
+        self.assertTrue(hasattr(storage, "_FileStorage__file_path"))
+        self.assertIsInstance(storage._FileStorage__file_path, str)
 
     def test_objects(self):
         # Verificar que el atributo __objects exista y sea un diccionario
-        self.assertTrue(hasattr(self.storage, "_FileStorage__objects"))
-        self.assertIsInstance(self.storage._FileStorage__objects, dict)
+        storage = FileStorage()
+        self.assertTrue(hasattr(storage, "_FileStorage__objects"))
+        self.assertIsInstance(storage._FileStorage__objects, dict)
 
     def test_all(self):
         # Verificar que el método all() devuelve un diccionario
-        objects = self.storage.all()
+        storage = FileStorage()
+        objects = storage.all()
         self.assertIsInstance(objects, dict)
 
     def test_new(self):
         # Verificar que el método new() funcione correctamente
+        storage = FileStorage()
         obj = BaseModel()
-        self.storage.new(obj)
-        objects = self.storage.all()
+        storage.new(obj)
+        objects = storage.all()
         self.assertIn(obj, objects.values())
 
     def test_save(self):
-        # Verificar que el método save() funcione correctamente
+        # Verificar que el método save() funciona correctamente
+        storage = FileStorage()
         obj = BaseModel()
-        self.storage.new(obj)
-        self.storage.save()
+        storage.new(obj)
+        storage.save()
         # Puedes verificar si el archivo se ha actualizado según tus requisitos
 
     def test_reload(self):
-        # Verificar que el método reload() funcione correctamente
+        # Verificar que el método reload() funciona correctamente
+        storage = FileStorage()
         obj = BaseModel()
-        self.storage.new(obj)
-        self.storage.save()
-        self.storage.reload()
+        storage.new(obj)
+        storage.save()
+        storage.reload()
         # Puedes verificar si los objetos se han recargado correctamente
+
+class TestBaseModel(unittest.TestCase):
+
+    def test_init(self):
+        # Verificar el comportamiento del constructor de BaseModel
+        obj = BaseModel()
+        # Puedes verificar si los atributos se inicializan correctamente
+
+    def test_save(self):
+        # Verificar el método save() en BaseModel
+        obj = BaseModel()
+        # Puedes verificar si el método actualiza self.updated_at y guarda
 
 if __name__ == '__main__':
     unittest.main()

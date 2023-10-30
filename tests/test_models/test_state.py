@@ -11,7 +11,3 @@ class TestState(unittest.TestCase):
         self.assertTrue(hasattr(state, "name"))
         self.assertIsInstance(state.name, str)
         self.assertEqual(state.name, "")
-
-
-if __name__ == '__main__':
-    unittest.main()

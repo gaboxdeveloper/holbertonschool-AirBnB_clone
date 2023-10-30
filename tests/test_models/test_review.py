@@ -11,7 +11,3 @@ class TestReview(unittest.TestCase):
         self.assertTrue(hasattr(review, "name"))
         self.assertIsInstance(review.text, str)
         self.assertEqual(review.text, "")
-
-
-if __name__ == '__main__':
-    unittest.main()

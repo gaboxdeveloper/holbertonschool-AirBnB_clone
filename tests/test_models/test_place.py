@@ -19,7 +19,3 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(hasattr(place, "user_id"))
         self.assertIsInstance(place.user_id, str)
         self.assertEqual(place.user_id, "")
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -11,7 +11,3 @@ class TestAmenity(unittest.TestCase):
         self.assertTrue(hasattr(amenity, "name"))
         self.assertIsInstance(amenity.name, str)
         self.assertEqual(amenity.name, "")
-
-
-if __name__ == '__main__':
-    unittest.main()

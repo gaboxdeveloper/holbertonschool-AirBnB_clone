@@ -54,7 +54,3 @@ class TestBaseModel(unittest.TestCase):
         self.base_model.save()
         updated_at_after = self.base_model.updated_at
         self.assertNotEqual(updated_at_before, updated_at_after)
-
-
-if __name__ == '__main__':
-    unittest.main()

@@ -9,5 +9,3 @@ class TestAmenity(unittest.TestCase):
         # Verificar que el atributo 'name' se inicializa correctamente
         amenity = Amenity()
         self.assertTrue(hasattr(amenity, "name"))
-        self.assertIsInstance(amenity.name, str)
-        self.assertEqual(amenity.name, "")

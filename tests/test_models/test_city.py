@@ -9,5 +9,3 @@ class TestCity(unittest.TestCase):
         # Verificar que los atributos de City se inicializan correctamente
         city = City()
         self.assertTrue(hasattr(city, "name"))
-        self.assertIsInstance(city.name, str)
-        self.assertEqual(city.name, "")

@@ -20,7 +20,7 @@
 	padding-left: 40px;
 }
 .popover {
-	/* display: none; */
+	display: none;
 	list-style: none;
 	outline: 1px #DDDDDD solid;
 	border-radius: 4px;

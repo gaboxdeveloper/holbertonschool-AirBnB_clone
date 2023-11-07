@@ -22,7 +22,7 @@
 .popover {
 	display: none;
 	list-style: none;
-	outline: 1px #DDDDDD solid;
+	border: 1px #DDDDDD solid;
 	border-radius: 4px;
 	background-color: #FAFAFA;
 	margin-left: -40px;
